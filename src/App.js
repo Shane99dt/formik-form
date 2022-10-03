@@ -1,23 +1,30 @@
 import Input from "./components/Input"
 import { useFormik } from "formik"
 import * as Yup from 'yup'
+import { useState } from "react"
 
 const App = () => {
 
+  const [ formSubmitted, setFormSubmitted ] = useState(false)
   const formik = useFormik({
     initialValues:{
       email:"",
       password:"",
       passwordConfirmation:"",
-      firstName:"ss",
-      lastName:"ss",
-      username:"ssss",
+      firstName:"",
+      lastName:"",
+      username:"",
       birthday:"",
-      profileGithub:"http://sss.ss",
+      profileGithub:"",
     },
-    onSubmit: values=> {
-      console.log(values)
-      formik.resetForm()
+    onSubmit: (values, {resetForm, setSubmitting})=> {
+      setSubmitting(true)
+
+      setTimeout(() => {
+        setSubmitting(false)
+        setFormSubmitted(true)
+        resetForm()
+      }, 3000)
     },
     validationSchema: Yup.object().shape({
       email: Yup.string()
@@ -62,6 +69,7 @@ const App = () => {
           value={formik.values.firstName}
           type="text"
           error={formik.errors.firstName}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="Last name"
@@ -71,6 +79,7 @@ const App = () => {
           value={formik.values.lastName}
           type="text"
           error={formik.errors.lastName}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="E-mail"
@@ -80,6 +89,7 @@ const App = () => {
           value={formik.values.email}
           type="email"
           error={formik.errors.email}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="Password"
@@ -89,6 +99,7 @@ const App = () => {
           value={formik.values.password}
           type="password"
           error={formik.errors.password}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="Password confirmation"
@@ -98,6 +109,7 @@ const App = () => {
           value={formik.values.passwordConfirmation}
           type="password"
           error={formik.errors.passwordConfirmation}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="Username"
@@ -107,6 +119,7 @@ const App = () => {
           value={formik.values.username}
           type="text"
           error={formik.errors.username}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="Birthday"
@@ -115,6 +128,7 @@ const App = () => {
           value={formik.values.birthday}
           type="date"
           error={formik.errors.birthday}
+          disabled={formik.isSubmitting}
         />
         <Input
           label="Github profile"
@@ -124,13 +138,14 @@ const App = () => {
           value={formik.values.profileGithub}
           type="url"
           error={formik.errors.profileGithub}
+          disabled={formik.isSubmitting}
         />
-        <button type="submit">
+        <button type="submit" disabled={formik.isSubmitting}>
           Create Account
         </button>
       </form>
 
-      {formik.isValidating && <p>Submitted</p>}
+      {formSubmitted && <p style={{color:"green"}}>Submitted</p>}
 
     </>
   )

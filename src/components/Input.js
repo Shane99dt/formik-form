@@ -1,4 +1,4 @@
-const Input = ({ label, handleChange, type, name, value, placeholder, error}) => {
+const Input = ({ label, handleChange, type, name, value, placeholder, error, disabled}) => {
   return(
     <fieldset>
       <label>{label} </label>
@@ -8,6 +8,7 @@ const Input = ({ label, handleChange, type, name, value, placeholder, error}) =>
         onChange={handleChange}
         value={value}
         type={type}
+        disabled={disabled}
       />
       {error && <small>{error}</small>}
     </fieldset>
