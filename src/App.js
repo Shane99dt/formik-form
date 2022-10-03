@@ -6,9 +6,9 @@ const App = () => {
 
   const formik = useFormik({
     initialValues:{
-      email:"bee@hh.cc",
-      password:"Xccc1@xxxx",
-      passwordConfirmation:"Xccc1@xxxx",
+      email:"",
+      password:"",
+      passwordConfirmation:"",
       firstName:"ss",
       lastName:"ss",
       username:"ssss",
@@ -130,7 +130,7 @@ const App = () => {
         </button>
       </form>
 
-      {!formik.handleSubmit && <p>Submitted</p>}
+      {formik.isValidating && <p>Submitted</p>}
 
     </>
   )
